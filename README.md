@@ -62,6 +62,35 @@ uv add requests
 uv add pytest --dev
 # 指定版本
 uv add numpy==1.26.0
+# 从Git仓库安装并设置为可编辑模式
+uv add git+https://github.com/用户名/abc.git#egg=abc --editable=./abc
+1️⃣ uv add
+
+universal-venv（uv）用来添加依赖包的命令，相当于 pip install。
+
+会把依赖写入 pyproject.toml 的 [tool.uv.dependencies] 或 [tool.uv.dev-dependencies]。
+
+2️⃣ git+https://github.com/用户名/abc.git
+
+从 Git 仓库安装依赖，而不是 PyPI。
+
+格式：git+<git仓库地址>。
+
+支持 HTTPS 或 SSH。
+
+3️⃣ #egg=abc
+
+包名声明，告诉 uv 生成的包名是 abc。
+
+必须有，否则 uv 不知道包名。
+
+4️⃣ --editable=./abc
+
+等同于 pip 的 -e 参数。
+
+将包安装为 可编辑模式（editable mode）。
+
+安装后对 ./abc 的修改会即时生效，无需重新安装。
 ```
 
 #### `uv remove` - 移除依赖
@@ -166,6 +195,35 @@ uv cache info
 uv self update
 # 显示版本
 uv self version
+```
+
+### Git仓库安装详解
+
+通过`uv add`可以从Git仓库安装Python包并设置为可编辑模式:
+
+```bash
+uv add git+https://github.com/用户名/仓库.git#egg=包名 --editable=./本地目录
+```
+
+参数说明:
+- `git+https://...`: Git仓库URL，必须包含`git+`前缀
+- `#egg=包名`: 指定Python包名(必须)
+- `--editable=./本地目录`: 设置为可编辑模式并指定本地克隆目录
+
+工作流程:
+1. 命令会克隆仓库到`./本地目录`
+2. 以开发模式安装在Python环境中
+3. 本地修改会自动反映在环境中
+
+示例验证方法:
+1. 检查安装:
+```bash
+pip list | grep 包名
+pip show 包名
+```
+2. 验证可编辑状态:
+```bash
+python -c "import 包名; print(包名.__file__)"  # 应显示本地路径
 ```
 
 #### `uv help` - 获取帮助
