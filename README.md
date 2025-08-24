@@ -62,6 +62,10 @@ uv add requests
 uv add pytest --dev
 # 指定版本
 uv add numpy==1.26.0
+
+# 特殊源安装(CUDA相关包)
+uv add torch==2.0.1 torchvision==0.15.2 torchaudio==2.0.2 \
+  --index-url https://download.pytorch.org/whl/cu118
 ```
 
 #### `uv remove` - 移除依赖
