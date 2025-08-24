@@ -216,6 +216,8 @@ torchvision = [
 ```
 
 说明:
+- pytorch官方关于uv的使用
+- https://hellowac.github.io/uv-zh-cn/guides/integration/pytorch/#_1 
 - `pytorch-cu126`: 指定CUDA 12.6版本的PyTorch索引
 - `pytorch-cu126`: 指定CUDA 11.8版本的索引(非macOS系统)
 - `marker`: 条件表达式，排除macOS系统
