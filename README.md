@@ -62,10 +62,6 @@ uv add requests
 uv add pytest --dev
 # 指定版本
 uv add numpy==1.26.0
-
-# 特殊源安装(CUDA相关包)
-uv add torch torchvision \
-    --index-url https://download.pytorch.org/whl/cu126 
 ```
 
 #### `uv remove` - 移除依赖
@@ -200,5 +196,53 @@ source ~/.bashrc
 
 ## 高级用法
 - 使用`uv --help`查看所有可用命令
+## PyTorch CUDA 配置
+
+对于需要使用CUDA加速的PyTorch安装，请在`pyproject.toml`中添加如下配置:
+
+```toml
+[tool.uv.index]
+name = "pytorch-cu126"
+url = "https://download.pytorch.org/whl/cu126"
+explicit = true
+
+[tool.uv.sources]
+torch = [
+  { index = "pytorch-cu126", marker = "platform_system != 'Darwin'" },
+]
+torchvision = [
+  { index = "pytorch-cu126", marker = "platform_system != 'Darwin'" },
+]
+```
+
+说明:
+- `pytorch-cu126`: 指定CUDA 12.6版本的PyTorch索引
+- `pytorch-cu126`: 指定CUDA 11.8版本的索引(非macOS系统)
+- `marker`: 条件表达式，排除macOS系统
+### 安装使用说明
+
+1. **配置后安装**:
+```bash
+# 配置好pyproject.toml后可直接安装(会自动使用配置的索引源)
+uv add torch torchvision
+```
+
+2. **手动指定安装源**(临时覆盖配置):
+```bash
+uv add torch --index-url https://download.pytorch.org/whl/cu126
+uv add torchvision --index-url https://download.pytorch.org/whl/cu126
+```
+
+4. **验证安装效果**:
+```python
+import torch
+print(torch.__version__)
+print(torch.cuda.is_available())
+print(torch.cuda.get_device_name(0)) 
+```
+
+
+---
+
 - 使用`uv 命令 --help`查看特定命令的帮助
 
