@@ -65,7 +65,7 @@ uv add numpy==1.26.0
 
 # 特殊源安装(CUDA相关包)
 uv add torch torchvision \
-  --default-index https://download.pytorch.org/whl/cu118
+  --index-url https://download.pytorch.org/whl/cu118
 ```
 
 #### `uv remove` - 移除依赖
@@ -201,3 +201,4 @@ source ~/.bashrc
 ## 高级用法
 - 使用`uv --help`查看所有可用命令
 - 使用`uv 命令 --help`查看特定命令的帮助
+

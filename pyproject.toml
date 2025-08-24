@@ -11,3 +11,4 @@ dependencies = [
 [[tool.uv.index]]
 url = "https://mirrors.aliyun.com/pypi/simple/"
 default = true
+extra-index-urls = ["https://download.pytorch.org/whl/cu126"]
