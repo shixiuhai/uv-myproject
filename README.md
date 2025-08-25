@@ -196,6 +196,10 @@ uv self update
 # 显示版本
 uv self version
 ```
+### `uv venv` - 在当前目录创建虚拟环境使用python3.12
+```bash
+uv venv -p python3.12
+```
 
 ### Git仓库安装详解
 
